@@ -47,7 +47,7 @@ This is a stock portfolio web application built using Node, Express, React, and 
 Contributions are welcome. Fork the repo and submit a pull request.
 
 ## In Development
-- **Login Features**: Currently working on implementing JSON web tokens so that users can login securely and each user can manage their own contacts independently. This ensures that many users can run or try out the application.
+- **Login Features**: Currently working on implementing JSON web tokens so that users can login securely and each user can manage their own stocks.
 - **Portfolio Features** : Allowing users to add and view their portfolios with functional requests.
 - **Portoflio Analysis**: Algorithms that analyze portfolios and advise users of appropriate changes.
 - **Plaid API**: Allowing users to link their actual portfolios for real-life use cases.
