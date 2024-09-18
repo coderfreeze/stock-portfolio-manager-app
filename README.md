@@ -1,6 +1,6 @@
 # Stock Porfolio Manager App
 
-This is a stock portfolio web application built with Node, Express, React, and MongoDB, TypeScript and Tailwind.
+This is a stock portfolio web application built using Node, Express, React, and MongoDB, TypeScript and Tailwind.
 
 ## Features
 
