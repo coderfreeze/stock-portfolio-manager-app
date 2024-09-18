@@ -50,4 +50,4 @@ Contributions are welcome. Fork the repo and submit a pull request.
 - **Login Features**: Currently working on implementing JSON web tokens so that users can login securely and each user can manage their own contacts independently. This ensures that many users can run or try out the application.
 - **Portfolio Features** : Allowing users to add and view their portfolios with functional requests.
 - **Portoflio Analysis**: Algorithms that analyze portfolios and advise users of appropriate changes.
-- **Plaid API**: Allowing users to link their actual portfolios for actual use cases.
+- **Plaid API**: Allowing users to link their actual portfolios for real-life use cases.
