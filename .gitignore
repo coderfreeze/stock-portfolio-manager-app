@@ -1,0 +1,25 @@
+# Node modules
+node_modules/
+client-app/node_modules/
+server-app/node_modules/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Dependency directories
+jspm_packages/
+
+# Production
+build/
+dist/
+
+# Misc
+.DS_Store
+.env
+*.swp
+
+# Tailwind generated files
+tailwind.config.js
+postcss.config.js

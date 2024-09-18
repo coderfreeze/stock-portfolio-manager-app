@@ -1,0 +1,6 @@
+export {default as logo1} from './MongoDB_Logo.svg.png'
+export {default as logo2} from './Expressjs.png'
+export {default as logo3} from './reacticon.png'
+export {default as logo4} from './2560px-Node.js_logo.svg.png'
+export {default as logo5} from './typescript.svg'
+export {default as logo6} from './Tailwind_CSS_Logo.svg.png'
