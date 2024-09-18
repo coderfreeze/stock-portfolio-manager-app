@@ -1,6 +1,6 @@
 # Stock Porfolio Manager App
 
-This is a stock portfolio web application built with the MERN stack (MongoDB, Express, React, Node.js) using TypeScript and Tailwind CSS.
+This is a stock portfolio web application built with Node, Express, React, and MongoDB. Also utilized TypeScript and Tailwind CSS.
 
 ## Features
 
