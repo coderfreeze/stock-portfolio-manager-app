@@ -5,6 +5,7 @@ import HomePage from './components/HomePage/HomePage';
 import RegisterPage from './components/RegisterPage/RegisterPage';
 import LoginPage from './components/LoginPage/LoginPage';
 import Footer from './components/Footer/Footer';
+import { UserProvider } from './components/UserContext/UserContext';
 
 interface IAppProps {}
 
@@ -12,22 +13,24 @@ const App: React.FunctionComponent<IAppProps> = () => {
 
 
 
-
-
   return (
-    <div className='flex flex-col min-h-screen'>
-      <Header />
+    <UserProvider>
 
-      <div className='flex-grow'>
-        <Routes>
-          <Route path='/' element={<HomePage />} />
-          <Route path='/register' element={<RegisterPage/ >} />
-          <Route path='/login' element={<LoginPage/ >} />
-        </Routes>
-      </div>
+        <div className='flex flex-col min-h-screen'>
+          <Header />
 
-      <Footer />
-    </div>
+          <div className='flex-grow'>
+            <Routes>
+              <Route path='/' element={<HomePage />} />
+              <Route path='/register' element={<RegisterPage/ >} />
+              <Route path='/login' element={<LoginPage/ >} />
+            </Routes>
+          </div>
+
+          <Footer />
+        </div>
+
+    </UserProvider>
   )
 };
 

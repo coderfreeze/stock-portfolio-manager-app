@@ -1,47 +1,51 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { serverUrl } from '../../Helpers/Constants';
+import { useUser } from '../UserContext/UserContext';
+import axios from 'axios';
 
 interface ILoginPageProps {}
 
 const LoginPage: React.FunctionComponent<ILoginPageProps> = () => {
 
   const navigate = useNavigate();
+  const {login} = useUser();
   
   const [email, setEmail] = React.useState<string>("");
   const [password, setPassword] = React.useState<string>("");
+  const [errorMessage, setErrorMessage] = React.useState<string>("");
 
 
-  const loginUser = async (e: React.FormEvent<HTMLFormElement>) => {
+  const loginUser = async(e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
-      await axios.post(`${serverUrl}/users/login`, {
+      const response = await axios.post(`${serverUrl}/users/login`, {
         email: email,
         password: password
       });
 
-      setEmail("");
-      setPassword("");
+      if (response.data.token) {
+        login(response.data.token);
+        navigate('/');
+      }
 
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      if (error.response && error.response.status === 400) {
+        setErrorMessage("Invalid Email or Password");
+      } else {
+        setErrorMessage("An error occured. Try again");
+      }
     }
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    loginUser(e);
-    navigate('/');
-  }
 
   return (
     <div className="container mx-auto p-12 flex flex-col items-center">
       <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-lg mt-20">
         <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">Login to Your Account</h2>
         
-        <form className="space-y-6" onSubmit={handleSubmit}>
+        <form className="space-y-6" onSubmit={loginUser}>
 
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-600 mb-1">Email</label>
@@ -56,6 +60,8 @@ const LoginPage: React.FunctionComponent<ILoginPageProps> = () => {
           <button type="submit" className="w-full bg-blue-500 text-white p-3 rounded-lg text-lg hover:bg-blue-600 transition-colors duration-300">Login</button>
 
         </form>
+
+        {errorMessage && ( <p style={{color: 'red'}}>{errorMessage}</p>)}
 
       </div>
     </div>
