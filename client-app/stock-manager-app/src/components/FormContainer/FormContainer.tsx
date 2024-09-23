@@ -63,7 +63,7 @@ const FormContainer: React.FunctionComponent<IFormContainerProps> = () => {
       <div className="w-full max-w-lg flex justify-center">
 
         <form className="w-full max-w-md flex flex-col items-center bg-white shadow-lg rounded-lg p-8" onSubmit={searchStock}>
-          <input type="text" placeholder="Enter stock symbol" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTicker(e.target.value)}
+          <input type="text" placeholder="Enter stock symbol (ex: AAPL)" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTicker(e.target.value)}
             className="w-full p-4 border border-gray-300 rounded-2xl text-lg mb-4 focus:outline-none focus:ring-2 focus:ring-green-400 transition duration-300"/>
           <button type="submit" className="w-full bg-green-500 text-white p-3 rounded-full text-lg hover:bg-green-600 transition-colors duration-300">Search</button>
         </form>

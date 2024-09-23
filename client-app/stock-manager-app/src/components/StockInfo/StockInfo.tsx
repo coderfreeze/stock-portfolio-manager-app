@@ -10,6 +10,11 @@ interface IStockInfoProps {
 
 const StockInfo: React.FunctionComponent<IStockInfoProps> = (props) => {
 
+    const token = localStorage.getItem("token");
+    const userId = localStorage.getItem("userId");
+
+    const [errorMessage, setErrorMessage] = React.useState<string>();
+
     const {data, clearData} = props;
 
 
@@ -45,8 +50,26 @@ const StockInfo: React.FunctionComponent<IStockInfoProps> = (props) => {
         e.preventDefault();
 
         try {
+            const response = await axios.get(`${serverUrl}/stocks/user/${userId}`, {
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                }
+              });
+
+              const userStocks: StockData[] = response.data;
+
+
+
             if (data && data.length > 0) {
                 const stockData = data[0];
+
+                const stockExists = userStocks.some((stock) => stock.symbol === stockData.symbol);
+
+                if (stockExists) {
+                    setErrorMessage("This stock is already in your portfolio");
+                    console.log("Stock already exists in portfolio");
+                    return;
+                };
 
                 await axios.post(`${serverUrl}/stocks`, {
                     symbol: stockData.symbol,
@@ -60,9 +83,12 @@ const StockInfo: React.FunctionComponent<IStockInfoProps> = (props) => {
                     change: stockData.change,
                     changePercent: stockData.changePercent,
                     userId: localStorage.getItem("userId"),
+                }, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
                 });
             }
-
             
         } catch (error) {
             console.log(error);
@@ -72,6 +98,7 @@ const StockInfo: React.FunctionComponent<IStockInfoProps> = (props) => {
     return (
         <div className="flex flex-col items-center">
             {data.length > 0 ? renderStockInfo() : <p>No stock data available.</p>}
+            {errorMessage && ( <p style={{color: 'red'}}>{errorMessage}</p>)}
         </div>
     );
 };

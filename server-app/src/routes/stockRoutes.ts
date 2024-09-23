@@ -6,12 +6,11 @@ import authenticateToken from "../middleware/authMiddleware";
 const router = express.Router();
 
 // Stock operations
-// (YOU NEED TO ADD AUTHENTICATETOKEN HERE FOR EACH OPERATION)
 router.post("/", authenticateToken, addStock); // POST /api/stocks
 
 router.get("/:id", authenticateToken, getStock); // GET /api/stocks/:id
 
-router.get("/:id", authenticateToken, getStocks) // GET /api/stocks/:id (userId)
+router.get("/user/:userId", authenticateToken, getStocks) // GET /api/stocks/user/:id (userId)
 
 router.put("/:id", authenticateToken, updateStock); // PUT /api/stocks/:id
 

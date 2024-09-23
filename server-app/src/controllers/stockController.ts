@@ -63,8 +63,8 @@ export const getStocks = async(
     try {
         const stocks = await stockModel.find({userId});
         
-        if (!stocks) {
-            res.status(404).send({message: "Stocks not found"});
+        if (!stocks || stocks.length === 0) {
+            return res.status(404).send({message: "Stocks not found"});
         }
 
         res.json(stocks);
