@@ -1,5 +1,5 @@
 import express from "express";
-import { addStock, getStock, updateStock, deleteStock}  from "../controllers/stockController";
+import { addStock, getStock, getStocks, updateStock, deleteStock}  from "../controllers/stockController";
 import authenticateToken from "../middleware/authMiddleware";
 
 
@@ -10,6 +10,8 @@ const router = express.Router();
 router.post("/", authenticateToken, addStock); // POST /api/stocks
 
 router.get("/:id", authenticateToken, getStock); // GET /api/stocks/:id
+
+router.get("/:id", authenticateToken, getStocks) // GET /api/stocks/:id (userId)
 
 router.put("/:id", authenticateToken, updateStock); // PUT /api/stocks/:id
 

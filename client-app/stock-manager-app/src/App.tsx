@@ -4,6 +4,7 @@ import Header from './components/Header/Header';
 import HomePage from './components/HomePage/HomePage';
 import RegisterPage from './components/RegisterPage/RegisterPage';
 import LoginPage from './components/LoginPage/LoginPage';
+import RenderPortfolio from './components/RenderPortfolio/RenderPortfolio';
 import Footer from './components/Footer/Footer';
 import { UserProvider } from './components/UserContext/UserContext';
 
@@ -22,8 +23,9 @@ const App: React.FunctionComponent<IAppProps> = () => {
           <div className='flex-grow'>
             <Routes>
               <Route path='/' element={<HomePage />} />
-              <Route path='/register' element={<RegisterPage/ >} />
+              <Route path='/register' element={<RegisterPage />} />
               <Route path='/login' element={<LoginPage/ >} />
+              <Route path='/portfolio' element={<RenderPortfolio />} />
             </Routes>
           </div>
 

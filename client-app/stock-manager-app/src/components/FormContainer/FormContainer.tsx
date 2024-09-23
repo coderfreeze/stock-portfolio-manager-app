@@ -2,6 +2,9 @@ import * as React from 'react';
 import axios from 'axios';
 import { serverUrl } from '../../Helpers/Constants';
 import { useUser } from '../UserContext/UserContext';
+import { StockData } from '../../interface/StockData';
+import StockInfo from '../StockInfo/StockInfo';
+import { Link } from 'react-router-dom';
 
 interface IFormContainerProps {}
 
@@ -10,23 +13,34 @@ const FormContainer: React.FunctionComponent<IFormContainerProps> = () => {
   const {user} = useUser(); // Get user from context
 
   const [ticker, setTicker] = React.useState<string>("");
+  const [data, setData] = React.useState<StockData | null>(null);
 
 
   const searchStock = async (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
-      const stock = await axios.get(`${serverUrl}/stocks/register/${ticker}`);
+      const token = localStorage.getItem('token');
+      if (!token) {
+        console.log("Token error, no token available");
+        return;
+      }
+      const stock = await axios.get(`${serverUrl}/stocks/${ticker}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-      if (!stock) {
-        console.log("Error finding stock");
+      if (stock.data && stock.data.symbol) {
+        setData(stock.data);
+        console.log("Data ", data);
+      } else {
+        console.log("No stock data found for this ticker");
+        setData(null);
       }
 
-      return (
-        <></>
-      )
     } catch (error) {
-      console.log(error);
+      console.log("Error fetching stock data", error);
     }
   };
 
@@ -56,12 +70,17 @@ const FormContainer: React.FunctionComponent<IFormContainerProps> = () => {
 
       </div>
 
+      {/* Render StockInfo if data exists */}
+      {data && <StockInfo data={[data]} clearData={() => setData(null)}/>}
+
 
       {/* View your stocks button */}
       <div className="w-full max-w-lg mt-14 flex justify-center">
-        <button className="w-full max-w-xs bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 text-white text-xl font-bold p-6 rounded-full shadow-lg hover:opacity-90 transition-opacity duration-300">
-          View Your Stocks Here
-        </button>
+        <Link to="/portfolio" className="text-lg font-medium hover:text-blue-600 transition-colors duration-200">
+          <button className="w-full max-w-xs bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 text-white text-xl font-bold p-6 rounded-full shadow-lg hover:opacity-90 transition-opacity duration-300">
+            View Your Stocks Here
+          </button>
+        </Link>
       </div>
 
     </div>

@@ -6,9 +6,11 @@ interface IHeaderProps {}
 
 const Header: React.FunctionComponent<IHeaderProps> = () => {
 
+    const token = localStorage.getItem("token");
+
     const [showPopup, setShowPopup] = React.useState(false);
 
-    const {logout} = useUser();
+    const {logout} = useUser(); // logout function from useUser
 
     const handleLogout = (e: React.MouseEvent<HTMLAnchorElement>) => {
         e.preventDefault();
@@ -33,9 +35,15 @@ const Header: React.FunctionComponent<IHeaderProps> = () => {
                       Your Portfolio
                     </a>
 
-                    <Link to="/login" className="text-lg font-medium hover:text-blue-600 transition-colors duration-200">Sign In</Link>
-                    <Link to="/register" className="text-lg font-medium hover:text-blue-600 transition-colors duration-200">Register</Link>
-                    <Link to="#" onClick={handleLogout} className="text-lg font-medium hover:text-blue-600 transition-colors duration-200">Logout</Link>
+                    {!token ? (
+                        <>
+                            <Link to="/login" className="text-lg font-medium hover:text-blue-600 transition-colors duration-200">Sign In</Link>
+                            <Link to="/register" className="text-lg font-medium hover:text-blue-600 transition-colors duration-200">Register</Link>
+                        </>
+                    ) : (
+                        <Link to="#" onClick={handleLogout} className="text-lg font-medium hover:text-blue-600 transition-colors duration-200">Logout</Link>
+                    )}
+
                 </div>
             </div>
 
@@ -48,8 +56,8 @@ const Header: React.FunctionComponent<IHeaderProps> = () => {
                     <button className='mt-4 bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-green-600' onClick={closePopup}>Close</button>
                 </div>
 
-        </div>
-        )}
+            </div>
+            )}
 
         </div>
     );

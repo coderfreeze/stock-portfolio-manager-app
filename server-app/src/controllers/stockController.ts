@@ -54,6 +54,30 @@ export const addStock = async(
 };
 
 
+
+export const getStocks = async(
+    req: express.Request,
+    res: express.Response
+) => {
+    const userId = req.params.userId;
+    try {
+        const stocks = await stockModel.find({userId});
+        
+        if (!stocks) {
+            res.status(404).send({message: "Stocks not found"});
+        }
+
+        res.json(stocks);
+
+    } catch (error) {
+        res.status(500).json({message: "Error fetching stocks", error});
+    }
+}
+
+
+
+
+
 // UPDATE STOCK
 export const updateStock = async(
     req: express.Request,
